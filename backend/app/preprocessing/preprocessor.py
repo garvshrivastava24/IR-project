@@ -6,6 +6,7 @@ and semantic dense retrieval (Sentence Transformer).
 """
 
 import re
+import html
 import unicodedata
 from typing import List, Optional
 import nltk
@@ -35,10 +36,11 @@ def normalize_unicode(text: str) -> str:
 
 
 def clean_text(text: Optional[str]) -> str:
-    """Basic text cleaning: unicode normalization and lowercase."""
+    """Basic text cleaning: HTML entity unescaping, unicode normalization, and lowercase."""
     if text is None:
         return ""
     text = str(text)
+    text = html.unescape(text)
     text = normalize_unicode(text)
     text = text.lower()
     return text.strip()

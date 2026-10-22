@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Book, Star, Calendar, Building, Hash } from 'lucide-react';
 
+function decodeHtml(str) {
+  if (!str) return '';
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  return txt.value;
+}
+
 export default function BookCard({ book }) {
   const [imageFailed, setImageFailed] = useState(false);
 
@@ -29,11 +36,11 @@ export default function BookCard({ book }) {
       </div>
 
       <div className="book-info">
-        <h3 className="book-title" title={book.title}>
-          {book.title}
+        <h3 className="book-title" title={decodeHtml(book.title)}>
+          {decodeHtml(book.title)}
         </h3>
         
-        <p className="book-author">by {book.author || 'Unknown Author'}</p>
+        <p className="book-author">by {decodeHtml(book.author) || 'Unknown Author'}</p>
 
         <div className="book-metadata-row">
           <span title="Year of publication">
@@ -43,7 +50,7 @@ export default function BookCard({ book }) {
           <span>•</span>
           <span title="Publisher">
             <Building size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 2 }} />
-            {book.publisher || 'Unknown'}
+            {decodeHtml(book.publisher) || 'Unknown'}
           </span>
           <span>•</span>
           <span className="book-isbn" title="ISBN Identifier">

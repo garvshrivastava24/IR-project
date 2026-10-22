@@ -18,6 +18,9 @@ def test_clean_text():
     assert clean_text("Harry Potter & The Deathly Hallows") == "harry potter & the deathly hallows"
     # Unicode accents
     assert clean_text("Café René") == "cafe rene"
+    # HTML entities
+    assert clean_text("Simon &amp; Schuster") == "simon & schuster"
+    assert clean_text("Tom&#39;s Midnight Garden") == "tom's midnight garden"
     # None and empty
     assert clean_text(None) == ""
     assert clean_text("") == ""
